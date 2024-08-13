@@ -1,3 +1,5 @@
+import io.papermc.sculptor.shared.util.MinecraftJarType
+
 plugins {
     id("io.papermc.sculptor.version") version "1.0.8"
 }
@@ -27,6 +29,8 @@ mache {
             "--all-reports",
         ))
     }
+
+    minecraftJarType = MinecraftJarType.CLIENT
 
     remapperArgs.set(args)
 }
