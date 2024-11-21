@@ -1,0 +1,28 @@
+--- a/net/minecraft/client/renderer/blockentity/BeaconRenderer.java
++++ b/net/minecraft/client/renderer/blockentity/BeaconRenderer.java
+@@ -102,10 +_,11 @@
+         float f14 = 1.0F;
+         float f15 = -1.0F + fraction;
+         float f16 = i1 * f * (0.5F / f2) + f15;
++        final float finalF5 = f9; final float finalF6 = f16; final float finalF7 = f15;
+         submitNodeCollector.submitCustomGeometry(
+             poseStack,
+             RenderType.beaconBeam(resourceLocation, false),
+-            (pose, consumer) -> renderPart(pose, consumer, i2, i, i3, 0.0F, f2, f2, 0.0F, f9, 0.0F, 0.0F, f12, 0.0F, 1.0F, f16, f15)
++            (pose, consumer) -> renderPart(pose, consumer, i2, i, i3, 0.0F, f2, f2, 0.0F, finalF5, 0.0F, 0.0F, f12, 0.0F, 1.0F, finalF6, finalF7)
+         );
+         poseStack.popPose();
+         f5 = -f3;
+@@ -116,10 +_,11 @@
+         f14 = 1.0F;
+         f15 = -1.0F + fraction;
+         f16 = i1 * f + f15;
++        final float finalF = f5;final float finalF1 = f8;final float finalF2 = f9;final float finalF3 = f16;final float finalF4 = f15;
+         submitNodeCollector.submitCustomGeometry(
+             poseStack,
+             RenderType.beaconBeam(resourceLocation, true),
+-            (pose, consumer) -> renderPart(pose, consumer, ARGB.color(32, i2), i, i3, f5, f6, f3, f8, f9, f3, f3, f3, 0.0F, 1.0F, f16, f15)
++            (pose, consumer) -> renderPart(pose, consumer, ARGB.color(32, i2), i, i3, finalF, f6, f3, finalF1, finalF2, f3, f3, f3, 0.0F, 1.0F, finalF3, finalF4)
+         );
+         poseStack.popPose();
+     }
