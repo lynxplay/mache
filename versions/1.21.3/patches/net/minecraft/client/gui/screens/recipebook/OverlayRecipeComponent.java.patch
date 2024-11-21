@@ -1,0 +1,128 @@
+--- a/net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent.java
++++ b/net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent.java
+@@ -31,7 +_,7 @@
+     private static final int MAX_ROW_LARGE = 5;
+     private static final float ITEM_RENDER_SCALE = 0.375F;
+     public static final int BUTTON_SIZE = 25;
+-    private final List<OverlayRecipeComponent.OverlayRecipeButton> recipeButtons = Lists.newArrayList();
++    private final List<OverlayRecipeButton> recipeButtons = Lists.newArrayList();
+     private boolean isVisible;
+     private int x;
+     private int y;
+@@ -85,12 +_,12 @@
+             if (this.isFurnaceMenu) {
+                 this.recipeButtons
+                     .add(
+-                        new OverlayRecipeComponent.OverlaySmeltingRecipeButton(i8, i9, recipeDisplayEntry.id(), recipeDisplayEntry.display(), contextMap, flag1)
++                        new OverlaySmeltingRecipeButton(i8, i9, recipeDisplayEntry.id(), recipeDisplayEntry.display(), contextMap, flag1)
+                     );
+             } else {
+                 this.recipeButtons
+                     .add(
+-                        new OverlayRecipeComponent.OverlayCraftingRecipeButton(i8, i9, recipeDisplayEntry.id(), recipeDisplayEntry.display(), contextMap, flag1)
++                        new OverlayCraftingRecipeButton(i8, i9, recipeDisplayEntry.id(), recipeDisplayEntry.display(), contextMap, flag1)
+                     );
+             }
+         }
+@@ -112,7 +_,7 @@
+         if (button != 0) {
+             return false;
+         } else {
+-            for (OverlayRecipeComponent.OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
++            for (OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
+                 if (overlayRecipeButton.mouseClicked(mouseX, mouseY, button)) {
+                     this.lastRecipeClicked = overlayRecipeButton.recipe;
+                     return true;
+@@ -139,7 +_,7 @@
+             int i1 = 4;
+             guiGraphics.blitSprite(RenderType::guiTextured, OVERLAY_RECIPE_SPRITE, this.x, this.y, min * 25 + 8, ceil * 25 + 8);
+ 
+-            for (OverlayRecipeComponent.OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
++            for (OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
+                 overlayRecipeButton.render(guiGraphics, mouseX, mouseY, partialTick);
+             }
+ 
+@@ -164,7 +_,7 @@
+         return false;
+     }
+ 
+-    class OverlayCraftingRecipeButton extends OverlayRecipeComponent.OverlayRecipeButton {
++    class OverlayCraftingRecipeButton extends OverlayRecipeButton {
+         private static final ResourceLocation ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/crafting_overlay");
+         private static final ResourceLocation HIGHLIGHTED_ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/crafting_overlay_highlighted");
+         private static final ResourceLocation DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/crafting_overlay_disabled");
+@@ -180,8 +_,8 @@
+             super(y, i, recipeDisplayId, flag, calculateIngredientsPositions(recipeDisplay, contextMap));
+         }
+ 
+-        private static List<OverlayRecipeComponent.OverlayRecipeButton.Pos> calculateIngredientsPositions(RecipeDisplay recipeDisplay, ContextMap contextMap) {
+-            List<OverlayRecipeComponent.OverlayRecipeButton.Pos> list = new ArrayList<>();
++        private static List<Pos> calculateIngredientsPositions(RecipeDisplay recipeDisplay, ContextMap contextMap) {
++            List<Pos> list = new ArrayList<>();
+             switch (recipeDisplay) {
+                 case ShapedCraftingRecipeDisplay shapedCraftingRecipeDisplay:
+                     PlaceRecipeHelper.placeRecipe(
+@@ -210,6 +_,8 @@
+                         }
+                         break label19;
+                     }
++                    break;
++                default: break;
+             }
+ 
+             return list;
+@@ -228,14 +_,14 @@
+     abstract class OverlayRecipeButton extends AbstractWidget {
+         final RecipeDisplayId recipe;
+         private final boolean isCraftable;
+-        private final List<OverlayRecipeComponent.OverlayRecipeButton.Pos> slots;
++        private final List<Pos> slots;
+ 
+         public OverlayRecipeButton(
+             final int x,
+             final int y,
+             final RecipeDisplayId recipeDisplayId,
+             final boolean flag,
+-            final List<OverlayRecipeComponent.OverlayRecipeButton.Pos> list
++            final List<Pos> list
+         ) {
+             super(x, y, 24, 24, CommonComponents.EMPTY);
+             this.slots = list;
+@@ -243,8 +_,8 @@
+             this.isCraftable = flag;
+         }
+ 
+-        protected static OverlayRecipeComponent.OverlayRecipeButton.Pos createGridPos(int i, int i1, List<ItemStack> list) {
+-            return new OverlayRecipeComponent.OverlayRecipeButton.Pos(3 + i * 7, 3 + i1 * 7, list);
++        protected static Pos createGridPos(int i, int i1, List<ItemStack> list) {
++            return new Pos(3 + i * 7, 3 + i1 * 7, list);
+         }
+ 
+         protected abstract ResourceLocation getSprite(boolean flag);
+@@ -261,7 +_,7 @@
+             float f1 = this.getY() + 2;
+             float f2 = 150.0F;
+ 
+-            for (OverlayRecipeComponent.OverlayRecipeButton.Pos pos : this.slots) {
++            for (Pos pos : this.slots) {
+                 guiGraphics.pose().pushPose();
+                 guiGraphics.pose().translate(f + pos.x, f1 + pos.y, 150.0F);
+                 guiGraphics.pose().scale(0.375F, 0.375F, 1.0F);
+@@ -288,7 +_,7 @@
+         }
+     }
+ 
+-    class OverlaySmeltingRecipeButton extends OverlayRecipeComponent.OverlayRecipeButton {
++    class OverlaySmeltingRecipeButton extends OverlayRecipeButton {
+         private static final ResourceLocation ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/furnace_overlay");
+         private static final ResourceLocation HIGHLIGHTED_ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/furnace_overlay_highlighted");
+         private static final ResourceLocation DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/furnace_overlay_disabled");
+@@ -302,7 +_,7 @@
+             super(y, i, recipeDisplayId, flag, calculateIngredientsPositions(recipeDisplay, contextMap));
+         }
+ 
+-        private static List<OverlayRecipeComponent.OverlayRecipeButton.Pos> calculateIngredientsPositions(RecipeDisplay recipeDisplay, ContextMap contextMap) {
++        private static List<Pos> calculateIngredientsPositions(RecipeDisplay recipeDisplay, ContextMap contextMap) {
+             if (recipeDisplay instanceof FurnaceRecipeDisplay furnaceRecipeDisplay) {
+                 List<ItemStack> list = furnaceRecipeDisplay.ingredient().resolveForStacks(contextMap);
+                 if (!list.isEmpty()) {

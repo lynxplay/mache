@@ -1,0 +1,30 @@
+--- a/net/minecraft/client/gui/screens/recipebook/CraftingRecipeBookComponent.java
++++ b/net/minecraft/client/gui/screens/recipebook/CraftingRecipeBookComponent.java
+@@ -23,12 +_,12 @@
+         ResourceLocation.withDefaultNamespace("recipe_book/filter_disabled_highlighted")
+     );
+     private static final Component ONLY_CRAFTABLES_TOOLTIP = Component.translatable("gui.recipebook.toggleRecipes.craftable");
+-    private static final List<RecipeBookComponent.TabInfo> TABS = List.of(
+-        new RecipeBookComponent.TabInfo(SearchRecipeBookCategory.CRAFTING),
+-        new RecipeBookComponent.TabInfo(Items.IRON_AXE, Items.GOLDEN_SWORD, RecipeBookCategories.CRAFTING_EQUIPMENT),
+-        new RecipeBookComponent.TabInfo(Items.BRICKS, RecipeBookCategories.CRAFTING_BUILDING_BLOCKS),
+-        new RecipeBookComponent.TabInfo(Items.LAVA_BUCKET, Items.APPLE, RecipeBookCategories.CRAFTING_MISC),
+-        new RecipeBookComponent.TabInfo(Items.REDSTONE, RecipeBookCategories.CRAFTING_REDSTONE)
++    private static final List<TabInfo> TABS = List.of(
++        new TabInfo(SearchRecipeBookCategory.CRAFTING),
++        new TabInfo(Items.IRON_AXE, Items.GOLDEN_SWORD, RecipeBookCategories.CRAFTING_EQUIPMENT),
++        new TabInfo(Items.BRICKS, RecipeBookCategories.CRAFTING_BUILDING_BLOCKS),
++        new TabInfo(Items.LAVA_BUCKET, Items.APPLE, RecipeBookCategories.CRAFTING_MISC),
++        new TabInfo(Items.REDSTONE, RecipeBookCategories.CRAFTING_REDSTONE)
+     );
+ 
+     public CraftingRecipeBookComponent(AbstractCraftingMenu abstractCraftingMenu) {
+@@ -80,6 +_,8 @@
+                     }
+                     break label15;
+                 }
++                break;
++            default: break;
+         }
+     }
+ 
