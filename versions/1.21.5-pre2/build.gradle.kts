@@ -7,7 +7,7 @@ plugins {
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
     minecraftVersion = "1.21.5-pre2"
-    minecraftJarType = MinecraftJarType.SERVER
+    minecraftJarType = MinecraftJarType.CLIENT
 
     repositories.register("sonatype snapshots") {
         url = "https://repo.papermc.io/repository/maven-public/"
