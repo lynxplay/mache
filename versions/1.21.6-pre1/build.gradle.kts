@@ -1,4 +1,8 @@
 import io.papermc.sculptor.shared.util.MinecraftJarType
+import kotlinx.serialization.json.*
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.UUID
 
 plugins {
     id("io.papermc.sculptor.version") version "1.0.11"
@@ -7,7 +11,42 @@ plugins {
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
     minecraftVersion = "1.21.6-pre1"
-    minecraftJarType = MinecraftJarType.SERVER
+    minecraftJarType = MinecraftJarType.CLIENT
+
+    repositories.register("sonatype snapshots") {
+        url = "https://repo.papermc.io/repository/maven-public/"
+        includeGroups.add("org.vineflower")
+    }
+
+    runClient {
+        extraArgs = project.providers.provider {
+            listOf(
+                "--username", (properties["mache.username"] ?: "Player") as String,
+                "--uuid", (properties["mache.uuid"] ?: UUID.randomUUID().toString()) as String,
+                "--userType", "MSA",
+            )
+        }
+        accessTokenArg.set(project.providers.provider {
+            val decodeFromString = Json.decodeFromString<JsonElement>(
+                Files.readString(
+                    Path.of(
+                        System.getProperty("user.home"),
+                        ".var/app/org.prismlauncher.PrismLauncher/data/PrismLauncher/accounts.json"
+                    )
+                )
+            )
+
+            decodeFromString
+                .jsonObject["accounts"]
+                ?.jsonArray
+                ?.filter {
+                    it.jsonObject["profile"]?.jsonObject?.get("name")?.jsonPrimitive?.content == "lynxplay"
+                            && it.jsonObject["type"]?.jsonPrimitive?.content == "MSA"
+                }?.map {
+                    it.jsonObject["ygg"]?.jsonObject?.get("token")?.jsonPrimitive?.content
+                }?.firstOrNull() ?: "none"
+        })
+    }
 
     val args = mutableListOf(
         "--temp-dir={tempDir}",
