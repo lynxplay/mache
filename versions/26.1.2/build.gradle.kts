@@ -1,13 +1,13 @@
 import io.papermc.sculptor.shared.util.MinecraftJarType
 
 plugins {
-    id("io.papermc.sculptor.version") version "2.0.0-SNAPSHOT"
+    id("client-autoconfigure")
 }
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
     minecraftVersion = "26.1.2"
-    minecraftJarType = MinecraftJarType.SERVER
+    minecraftJarType = MinecraftJarType.CLIENT
 
     val args = mutableListOf(
         "--temp-dir={tempDir}",
@@ -29,6 +29,7 @@ mache {
 
 tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-parameters")
+    options.forkOptions.memoryMaximumSize = "1G"
 }
 
 dependencies {

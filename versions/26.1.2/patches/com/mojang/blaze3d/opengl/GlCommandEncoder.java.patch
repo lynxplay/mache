@@ -1,0 +1,206 @@
+--- a/com/mojang/blaze3d/opengl/GlCommandEncoder.java
++++ b/com/mojang/blaze3d/opengl/GlCommandEncoder.java
+@@ -604,153 +_,56 @@
+             this.lastProgram = glProgram;
+         }
+ 
+-        label200:
+-        for (Entry<String, Uniform> entryx : glProgram.getUniforms().entrySet()) {
+-            String namex = entryx.getKey();
+-            boolean isDirty = renderPass.dirtyUniforms.contains(namex);
+-            Uniform var10000 = entryx.getValue();
+-            Objects.requireNonNull(var10000);
+-            Uniform var10 = var10000;
+-            byte var11 = 0;
+-
+-            while (true) {
+-                switch (SwitchBootstraps.typeSwitch<"typeSwitch",Uniform.Ubo,Uniform.Utb,Uniform.Sampler>(var10, var11)) {
+-                    case 0:
+-                        Uniform.Ubo var12 = (Uniform.Ubo)var10;
+-                        Uniform.Ubo var62 = var12;
+-
+-                        try {
+-                            var63 = var62.blockBinding();
+-                        } catch (Throwable var32) {
+-                            throw new MatchException(var32.toString(), var32);
+-                        }
+-
+-                        int var41 = var63;
+-                        if (true) {
+-                            if (isDirty) {
+-                                GpuBufferSlice bufferView = renderPass.uniforms.get(namex);
+-                                GL32.glBindBufferRange(
+-                                    GlConst.GL_UNIFORM_BUFFER, var41, ((GlBuffer)bufferView.buffer()).handle, bufferView.offset(), bufferView.length()
+-                                );
+-                            }
+-                            continue label200;
+-                        }
+-
+-                        var11 = 1;
+-                        break;
+-                    case 1:
+-                        Uniform.Utb bufferView = (Uniform.Utb)var10;
+-                        Uniform.Utb var54 = bufferView;
+-
+-                        try {
+-                            var55 = var54.location();
+-                        } catch (Throwable var31) {
+-                            throw new MatchException(var31.toString(), var31);
+-                        }
+-
+-                        int var43 = var55;
+-                        if (true) {
+-                            Uniform.Utb var56 = bufferView;
+-
+-                            try {
+-                                var57 = var56.samplerIndex();
+-                            } catch (Throwable var30) {
+-                                throw new MatchException(var30.toString(), var30);
+-                            }
+-
+-                            var43 = var57;
+-                            if (true) {
+-                                Uniform.Utb var58 = bufferView;
+-
+-                                try {
+-                                    var59 = var58.format();
+-                                } catch (Throwable var29) {
+-                                    throw new MatchException(var29.toString(), var29);
+-                                }
+-
+-                                TextureFormat var45 = var59;
+-                                Uniform.Utb var60 = bufferView;
+-
+-                                try {
+-                                    var61 = var60.texture();
+-                                } catch (Throwable var28) {
+-                                    throw new MatchException(var28.toString(), var28);
+-                                }
+-
+-                                var43 = var61;
+-                                if (true) {
+-                                    if (differentProgram || isDirty) {
+-                                        GlStateManager._glUniform1i(var43, var43);
+-                                    }
+-
+-                                    GlStateManager._activeTexture(GlConst.GL_TEXTURE0 + var43);
+-                                    GL11C.glBindTexture(GL31.GL_TEXTURE_BUFFER, var43);
+-                                    if (isDirty) {
+-                                        GpuBufferSlice bufferViewx = renderPass.uniforms.get(namex);
+-                                        GL31.glTexBuffer(GL31.GL_TEXTURE_BUFFER, GlConst.toGlInternalId(var45), ((GlBuffer)bufferViewx.buffer()).handle);
+-                                    }
+-                                    continue label200;
+-                                }
+-                            }
+-                        }
+-
+-                        var11 = 2;
+-                        break;
+-                    case 2:
+-                        Uniform.Sampler bufferView = (Uniform.Sampler)var10;
+-                        Uniform.Sampler var50 = bufferView;
+-
+-                        try {
+-                            var51 = var50.location();
+-                        } catch (Throwable var27) {
+-                            throw new MatchException(var27.toString(), var27);
+-                        }
+-
+-                        int viewAndSamplerx = var51;
+-                        if (true) {
+-                            Uniform.Sampler var52 = bufferView;
+-
+-                            try {
+-                                var53 = var52.samplerIndex();
+-                            } catch (Throwable var26) {
+-                                throw new MatchException(var26.toString(), var26);
+-                            }
+-
+-                            viewAndSamplerx = var53;
+-                            if (true) {
+-                                GlRenderPass.TextureViewAndSampler viewAndSamplerxx = renderPass.samplers.get(namex);
+-                                if (viewAndSamplerxx == null) {
+-                                    continue label200;
+-                                }
+-
+-                                GlTextureView textureViewx = viewAndSamplerxx.view();
+-                                if (differentProgram || isDirty) {
+-                                    GlStateManager._glUniform1i(viewAndSamplerx, viewAndSamplerx);
+-                                }
+-
+-                                GlStateManager._activeTexture(GlConst.GL_TEXTURE0 + viewAndSamplerx);
+-                                GlTexture texture = textureViewx.texture();
+-                                int target;
+-                                if ((texture.usage() & GpuTexture.USAGE_CUBEMAP_COMPATIBLE) != 0) {
+-                                    target = 34067;
+-                                    GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, texture.id);
+-                                } else {
+-                                    target = GlConst.GL_TEXTURE_2D;
+-                                    GlStateManager._bindTexture(texture.id);
+-                                }
+-
+-                                GL33C.glBindSampler(viewAndSamplerx, viewAndSamplerxx.sampler().getId());
+-                                GlStateManager._texParameter(target, GL12.GL_TEXTURE_BASE_LEVEL, textureViewx.baseMipLevel());
+-                                GlStateManager._texParameter(target, GL12.GL_TEXTURE_MAX_LEVEL, textureViewx.baseMipLevel() + textureViewx.mipLevels() - 1);
+-                                continue label200;
+-                            }
+-                        }
+-
+-                        var11 = 3;
+-                        break;
+-                    default:
+-                        throw new MatchException(null, null);
+-                }
++        for (Entry<String, Uniform> entry : glProgram.getUniforms().entrySet()) {
++            String name = entry.getKey();
++            boolean isDirty = renderPass.dirtyUniforms.contains(name);
++            switch ((Uniform)entry.getValue()) {
++                case Uniform.Ubo(int blockBinding):
++                    if (isDirty) {
++                        GpuBufferSlice bufferView = renderPass.uniforms.get(name);
++                        GL32.glBindBufferRange(35345, blockBinding, ((GlBuffer)bufferView.buffer()).handle, bufferView.offset(), bufferView.length());
++                    }
++                    break;
++                case Uniform.Utb(int location, int samplerIndex, TextureFormat format, int texture):
++                    if (differentProgram || isDirty) {
++                        GlStateManager._glUniform1i(location, samplerIndex);
++                    }
++
++                    GlStateManager._activeTexture(33984 + samplerIndex);
++                    GL11C.glBindTexture(35882, texture);
++                    if (isDirty) {
++                        GpuBufferSlice bufferView = renderPass.uniforms.get(name);
++                        GL31.glTexBuffer(35882, GlConst.toGlInternalId(format), ((GlBuffer)bufferView.buffer()).handle);
++                    }
++                    break;
++                case Uniform.Sampler(int location, int samplerIndex):
++                    GlRenderPass.TextureViewAndSampler viewAndSampler = renderPass.samplers.get(name);
++                    if (viewAndSampler == null) {
++                        break;
++                    }
++
++                    GlTextureView textureView = viewAndSampler.view();
++                    if (differentProgram || isDirty) {
++                        GlStateManager._glUniform1i(location, samplerIndex);
++                    }
++
++                    GlStateManager._activeTexture(33984 + samplerIndex);
++                    GlTexture texture = textureView.texture();
++                    int target;
++                    if ((texture.usage() & 16) != 0) {
++                        target = 34067;
++                        GL11.glBindTexture(34067, texture.id);
++                    } else {
++                        target = 3553;
++                        GlStateManager._bindTexture(texture.id);
++                    }
++
++                    GL33C.glBindSampler(samplerIndex, viewAndSampler.sampler().getId());
++                    GlStateManager._texParameter(target, 33084, textureView.baseMipLevel());
++                    GlStateManager._texParameter(target, 33085, textureView.baseMipLevel() + textureView.mipLevels() - 1);
++                    break;
++                default:
++                    throw new MatchException(null, null);
+             }
+         }
+ 

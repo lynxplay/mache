@@ -1,0 +1,11 @@
+--- a/net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent.java
++++ b/net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent.java
+@@ -33,7 +_,7 @@
+     private static final int MAX_ROW_LARGE = 5;
+     private static final float ITEM_RENDER_SCALE = 0.375F;
+     public static final int BUTTON_SIZE = 25;
+-    private final List<OverlayRecipeComponent.OverlayRecipeButton> recipeButtons = Lists.newArrayList();
++    private final List<OverlayRecipeButton> recipeButtons = Lists.newArrayList();
+     private boolean isVisible;
+     private int x;
+     private int y;
