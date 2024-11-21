@@ -1,13 +1,22 @@
 import io.papermc.sculptor.shared.util.MinecraftJarType
+import kotlinx.serialization.json.*
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.UUID
 
 plugins {
-    id("io.papermc.sculptor.version") version "1.0.15"
+    id("client-autoconfigure")
 }
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
     minecraftVersion = "1.21.11"
-    minecraftJarType = MinecraftJarType.SERVER
+    minecraftJarType = MinecraftJarType.CLIENT
+
+    repositories.register("sonatype snapshots") {
+        url = "https://repo.papermc.io/repository/maven-public/"
+        includeGroups.add("org.vineflower")
+    }
 
     val args = mutableListOf(
         "--temp-dir={tempDir}",

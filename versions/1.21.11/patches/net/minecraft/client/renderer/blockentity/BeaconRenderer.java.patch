@@ -1,0 +1,54 @@
+--- a/net/minecraft/client/renderer/blockentity/BeaconRenderer.java
++++ b/net/minecraft/client/renderer/blockentity/BeaconRenderer.java
+@@ -107,11 +_,14 @@
+         float f10 = 1.0F;
+         float f11 = -1.0F + fraction;
+         float f12 = height * scale * (0.5F / solidBeamRadius) + f11;
++        float finalF5 = f5;
++        float finalF11 = f11;
++        float finalF12 = f12;
+         nodeCollector.submitCustomGeometry(
+             poseStack,
+             RenderTypes.beaconBeam(beamLocation, false),
+             (pose, consumer) -> renderPart(
+-                pose, consumer, color, beamStart, i, 0.0F, solidBeamRadius, solidBeamRadius, 0.0F, f5, 0.0F, 0.0F, f8, 0.0F, 1.0F, f12, f11
++                pose, consumer, color, beamStart, i, 0.0F, solidBeamRadius, solidBeamRadius, 0.0F, finalF5, 0.0F, 0.0F, f8, 0.0F, 1.0F, finalF12, finalF11
+             )
+         );
+         poseStack.popPose();
+@@ -123,6 +_,11 @@
+         f10 = 1.0F;
+         f11 = -1.0F + fraction;
+         f12 = height * scale + f11;
++        float finalv2F1 = f1;
++        float finalv2F4 = f4;
++        float finalv2F5 = f5;
++        float finalv2F12 = f12;
++        float finalv2F11 = f11;
+         nodeCollector.submitCustomGeometry(
+             poseStack,
+             RenderTypes.beaconBeam(beamLocation, true),
+@@ -132,18 +_,18 @@
+                 ARGB.color(32, color),
+                 beamStart,
+                 i,
+-                f1,
++                finalv2F1,
+                 f2,
+                 beamGlowRadius,
+-                f4,
+-                f5,
++                finalv2F4,
++                finalv2F5,
+                 beamGlowRadius,
+                 beamGlowRadius,
+                 beamGlowRadius,
+                 0.0F,
+                 1.0F,
+-                f12,
+-                f11
++                finalv2F12,
++                finalv2F11
+             )
+         );
+         poseStack.popPose();
