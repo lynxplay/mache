@@ -1,0 +1,56 @@
+--- a/net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent.java
++++ b/net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent.java
+@@ -31,7 +_,7 @@
+     private static final int MAX_ROW_LARGE = 5;
+     private static final float ITEM_RENDER_SCALE = 0.375F;
+     public static final int BUTTON_SIZE = 25;
+-    private final List<OverlayRecipeComponent.OverlayRecipeButton> recipeButtons = Lists.newArrayList();
++    private final List<OverlayRecipeButton> recipeButtons = Lists.newArrayList();
+     private boolean isVisible;
+     private int x;
+     private int y;
+@@ -112,7 +_,7 @@
+         if (button != 0) {
+             return false;
+         } else {
+-            for (OverlayRecipeComponent.OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
++            for (OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
+                 if (overlayRecipeButton.mouseClicked(mouseX, mouseY, button)) {
+                     this.lastRecipeClicked = overlayRecipeButton.recipe;
+                     return true;
+@@ -139,7 +_,7 @@
+             int i1 = 4;
+             guiGraphics.blitSprite(RenderType::guiTextured, OVERLAY_RECIPE_SPRITE, this.x, this.y, min * 25 + 8, ceil * 25 + 8);
+ 
+-            for (OverlayRecipeComponent.OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
++            for (OverlayRecipeButton overlayRecipeButton : this.recipeButtons) {
+                 overlayRecipeButton.render(guiGraphics, mouseX, mouseY, partialTick);
+             }
+ 
+@@ -164,7 +_,7 @@
+         return false;
+     }
+ 
+-    class OverlayCraftingRecipeButton extends OverlayRecipeComponent.OverlayRecipeButton {
++    class OverlayCraftingRecipeButton extends OverlayRecipeButton {
+         private static final ResourceLocation ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/crafting_overlay");
+         private static final ResourceLocation HIGHLIGHTED_ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/crafting_overlay_highlighted");
+         private static final ResourceLocation DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/crafting_overlay_disabled");
+@@ -258,7 +_,7 @@
+             float f1 = this.getY() + 2;
+             float f2 = 150.0F;
+ 
+-            for (OverlayRecipeComponent.OverlayRecipeButton.Pos pos : this.slots) {
++            for (Pos pos : this.slots) {
+                 guiGraphics.pose().pushPose();
+                 guiGraphics.pose().translate(f + pos.x, f1 + pos.y, 150.0F);
+                 guiGraphics.pose().scale(0.375F, 0.375F, 1.0F);
+@@ -285,7 +_,7 @@
+         }
+     }
+ 
+-    class OverlaySmeltingRecipeButton extends OverlayRecipeComponent.OverlayRecipeButton {
++    class OverlaySmeltingRecipeButton extends OverlayRecipeButton {
+         private static final ResourceLocation ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/furnace_overlay");
+         private static final ResourceLocation HIGHLIGHTED_ENABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/furnace_overlay_highlighted");
+         private static final ResourceLocation DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("recipe_book/furnace_overlay_disabled");

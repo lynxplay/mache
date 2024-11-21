@@ -1,0 +1,18 @@
+--- a/net/minecraft/client/renderer/item/ConditionalItemModel.java
++++ b/net/minecraft/client/renderer/item/ConditionalItemModel.java
+@@ -1,5 +_,6 @@
+ package net.minecraft.client.renderer.item;
+ 
++import com.mojang.serialization.Codec;
+ import com.mojang.serialization.MapCodec;
+ import com.mojang.serialization.codecs.RecordCodecBuilder;
+ import javax.annotation.Nullable;
+@@ -80,7 +_,7 @@
+         private static <T extends ConditionalItemModelProperty> T swapContext(
+             T conditionalItemModelProperty, RegistryContextSwapper registryContextSwapper, ClientLevel clientLevel
+         ) {
+-            return (T)registryContextSwapper.swapTo(conditionalItemModelProperty.type().codec(), conditionalItemModelProperty, clientLevel.registryAccess())
++            return (T)registryContextSwapper.swapTo((Codec<T>) conditionalItemModelProperty.type().codec(), conditionalItemModelProperty, clientLevel.registryAccess())
+                 .result()
+                 .orElse(conditionalItemModelProperty);
+         }
