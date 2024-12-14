@@ -23,6 +23,7 @@ mache {
         "--output={output}",
         "--input={input}",
         "--input-classpath={inputClasspath}",
+        "--hypo-parallelism=1",
     )
     if (generateReportsProperty.getOrElse("false").toBooleanStrict()) {
         args.addAll(listOf(
@@ -35,7 +36,7 @@ mache {
 }
 
 dependencies {
-    codebook("1.0.11")
+    codebook("1.0.12")
     remapper(art("2.0.5"))
     decompiler(vineflower("1.11.0-20241204.173358-53"))
     parchment("1.21.4", "2024.12.07")
