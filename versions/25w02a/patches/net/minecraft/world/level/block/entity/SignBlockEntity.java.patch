@@ -1,0 +1,10 @@
+--- a/net/minecraft/world/level/block/entity/SignBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/SignBlockEntity.java
+@@ -210,6 +_,7 @@
+                 ClickEvent.RunCommand var12 = (ClickEvent.RunCommand)clickEvent;
+                 ClickEvent.RunCommand var10000 = var12;
+ 
++                final String var16;
+                 try {
+                     var16 = var10000.command();
+                 } catch (Throwable var15) {
