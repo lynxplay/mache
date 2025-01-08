@@ -6,7 +6,7 @@ plugins {
 
 val generateReportsProperty = providers.gradleProperty("generateReports")
 mache {
-    minecraftVersion = "1.21.4"
+    minecraftVersion = "25w02a"
     minecraftJarType = MinecraftJarType.SERVER
 
     repositories.register("sonatype snapshots") {
