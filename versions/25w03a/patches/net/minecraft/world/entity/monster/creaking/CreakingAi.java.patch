@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/entity/monster/creaking/CreakingAi.java
 +++ b/net/minecraft/world/entity/monster/creaking/CreakingAi.java
-@@ -45,7 +_,7 @@
+@@ -50,7 +_,7 @@
          brain.addActivity(Activity.CORE, 0, ImmutableList.of(new Swim<Creaking>(0.8F) {
              @Override
              protected boolean checkExtraStartConditions(ServerLevel level, Creaking owner) {
